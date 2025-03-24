@@ -1,0 +1,25 @@
+#Compiled files
+__pycache__/
+_ext                                                                                                                                                          *.pyc                                                                                                                                                         *.pyd                                                                                                                                                         *.so                                                                                                                                                          *.dll                                                                                                                                                         *.egg-info/                                                                                                                                                   build/                                                                                                                                                        dist/                                                                                                                                                         wheels/
+
+# pytorch/python/numpy format
+*.pth                                                                                                                                                         *.pkl
+*.npy
+*.ts
+model_ts*.txt
+
+# Virtual Env
+
+bin/
+lib/
+lib64/
+etc/
+include/
+pyvenv.cfg
+share/
+
+# VS code
+.vscode/
+
+# Logging
+wandb/

@@ -1,23 +1,33 @@
-## Progression
+# Progression
 
-#### Steps to do:
-1. ##### Define a DataLoader
+### Steps to do:
+1. #### Define a DataSet
     
     - Study the number of points for model and class <span style="color:green">**DONE**</span>  
     - Remove the duplicate elements (?)  
-    - Add Sampler to make the dataset more omogeneous <span style="color:green">**DONE**</span>  
-    _Clean the sampler and its inputs_
+    - Add Sampler to make the dataset more omogeneous <span style="color:yellow">**DONE**</span>  
+    &emsp;Make it runtime in the Dataloader, refactor the code 
     &emsp;Problem:  
     &emsp;&emsp;How to deal with the fact that sampling different meshes with different number of points will results  
     &emsp;&emsp;in input pointclouds with differents density  
     &emsp;&emsp;Check if a sampler exist in <code>pyvista</code> _there is but seems to be too refined respect to what we need_
-    - Normalize the data in a unit sphere <span style="color:green">**DONE**</span>  
-    _Just need to clean the normalizer and its inputs_
+    - Normalize the data in a unit sphere <span style="color:yellow">**DONE**</span>  
+    &emsp;Make it runtime in the Dataloader, refactor the code 
     - Create multiple dataset (more omogeneous) <span style="color:green">**DONE**</span>  
     - Get a function that allow to select partial dataset <span style="color:green">**DONE**</span> (function implemented)  
-    - Implement in the <code>DataSet</code> the augmentations (__which ones?__)
+    - Make DataSet be able to load compressed numpy  
 
-2. ##### Define a training loop
+1. #### Implement the DataLoader
+    
+    - Introduce a modified DataLoader 
+    - Augmentations: 
+        - Traslations
+        - Move the Normalization
+        - Rotations 
+        - Noise
+        - Move the Sampling
+
+1. #### Define a training loop
 
     - Assemble the model (encoder: pointnet, decoder: ?) <span style="color:green">**DONE**</span>  
     - Perform first runs with the small dataset <span style="color:green">**DONE**</span>  
@@ -25,8 +35,13 @@
     - Write down metrics <span style="color:green">**DONE**</span> 
     - Log everything in <code>wandb</code>  
     Define a dict to log everything
+    - Make a function for the training loop and validation
 
-#### Considerations
+1. #### General things to do  
+    
+    - Clean the code and the notebook  
+
+### Considerations
 
 We have found multiple disconnected meshes characterized by few vertices,  
 currently we are cutting disregarding every mesh with less than 5000 points.

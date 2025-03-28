@@ -1,0 +1,76 @@
+In my dataset directory: `/mnt/raid1/dataset/shrec-2025-protein-classification`, I have a file named `train_set.csv` with 9286 lines of the following content:
+
+protein_id,class_id
+8ugd_8:R:3U_model1,96
+8h0v_18:R:c_model1,86
+3j3q_1:DX:4F_model1,8
+4u4u_23:XC:d1_model1,83
+6rny_4:H:H_model1,34
+5cp6_5:E:C_model1,14
+7btb_26:Z:Z_model1,45
+6esh_4:H:H_model1,70
+7w37_20:RA:T_model1,33
+...
+
+The class_id field contains values ranging from 0 up to 96. In `/mnt/raid1/dataset/shrec-2025-protein-classification/train` subdirectory there are 9244 .vtk files:
+
+105m_1:A:A_model1.vtk
+107m_1:A:A_model1.vtk
+110m_1:A:A_model1.vtk
+112m_1:A:A_model1.vtk
+1a6g_1:A:A_model1.vtk
+1a6m_1:A:A_model1.vtk
+1a6n_1:A:A_model1.vtk
+1abs_1:A:A_model1.vtk
+1agr_1:A:A_model1.vtk
+1agr_1:B:D_model1.vtk
+...
+9ja0_1:B:B_model1.vtk
+9ja0_1:D:D_model1.vtk
+9ja0_1:E:E_model1.vtk
+9ja0_1:F:F_model1.vtk
+9ja0_1:G:G_model1.vtk
+9ja0_1:H:H_model1.vtk
+9ja0_1:I:I_model1.vtk
+9ja0_1:J:J_model1.vtk
+9ja0_1:K:K_model1.vtk
+9ja0_1:L:L_model1.vtk
+
+I can read the .vtk files with the `pyvista` package, in this way:
+
+```python
+import pyvista as pv
+protein_mesh = pv.read(protein_file)
+point_cloud  = protein_mesh.points
+```
+
+Now I want to save the point clouds in `.xz` format with a function I already wrote. The first step is to create a BenchmarkShape object (without symmetries, I'm ot interested in them right now). Then, it's possible to call the `save_benchmark_shape` method passing an output path, a prefix (e.g. the original filename without the extension), the file format ('.xz' in this case) and the required decimal precision as `number_fmt` (3 digits in this case). This is the relevant portion of the BenchmarkShape class:
+
+```python
+class BenchmarkShape:
+    def __init__(self, points, symmetry_list = None):
+        self.points = points #Geometry (point cloud)
+        self.symmetry_list = symmetry_list #List of SymmetryPlane
+
+... other methods ...
+
+    #Saves the point cloud and the symmetries
+    def save_benchmark_shape(self, output_path, prefix, file_fmt='npz', number_fmt='%.18e'):
+        pc_path = os.path.join(output_path, prefix[:-1] + '.' + file_fmt)
+        if file_fmt == 'npz':
+            np.savez_compressed(pc_path, points=self.points, fmt=number_fmt)
+        elif file_fmt == 'txt':
+            np.savetxt(pc_path, self.points, fmt=number_fmt)
+        elif file_fmt == 'gz':
+            import gzip
+            f = gzip.GzipFile(f"{pc_path}", "w")
+            np.savetxt(f, self.points, fmt=number_fmt)
+            f.close()
+        elif file_fmt == 'xz':
+            import lzma
+            f = lzma.open(f"{pc_path}", 'wb')
+            np.savetxt(f, self.points, fmt=number_fmt)
+            f.close()
+```
+
+Write a python script that takes the `train_set.csv` file as input, reads the `.vtk` files in the `/mnt/raid1/dataset/shrec-2025-protein-classification/train` subdirectory and creates the `.xz` point cloud files in the `/mnt/raid1/dataset/shrec-2025-protein-classification/train-xz` subdirectory. Please use this format to create filenames: starting from the file named '9ja0_1:L:L_model1.vtk' belonging to class number 8 with 16608 points, the output file should be called '08-016608-9ja0_1:L:L_model1.xz'.

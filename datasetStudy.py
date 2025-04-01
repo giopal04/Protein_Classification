@@ -89,7 +89,7 @@ def visualize_mesh(df, cls, idx=0):
     mesh = pv.read(os.path.join(root, 'train', protein_name))
     mesh.plot()
 
-def create_dataset(df, class_ids, number_of_proteins):
+def create_dataframe(df, class_ids, number_of_proteins):
     subset_dfs = []
     for cls in class_ids:
         class_df = df[df['class_id'] == cls]

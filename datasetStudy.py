@@ -3,7 +3,7 @@ import pyvista as pv
 import os
 
 # Multiple function here depends on thi variable
-root = '/mnt/dataset/shrec-2025-protein-classification'
+root = '/mnt/dataset/shrec-2025-protein-classification/v2-20250331'
 
 def possible_disconnected_mesh(df, cls, get_names=False):
     tmp_df = df[ df['class_id'] == cls]

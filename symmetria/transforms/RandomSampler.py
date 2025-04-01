@@ -1,7 +1,7 @@
 from typing import Optional
 import torch
 
-from AbstractTransform import AbstractTransform
+from symmetria.transforms.AbstractTransform import AbstractTransform
 
 
 class RandomSampler(AbstractTransform):
@@ -12,27 +12,25 @@ class RandomSampler(AbstractTransform):
 
     def transform(
             self,
-            idx: int,
             points: torch.Tensor,
             planar_symmetries: Optional[torch.Tensor] = None,
             axis_continue_symmetries: Optional[torch.Tensor] = None,
             axis_discrete_symmetries: Optional[torch.Tensor] = None
-    ) -> tuple[int, torch.Tensor, Optional[torch.Tensor], Optional[torch.Tensor], Optional[torch.Tensor]]:
+    ) -> tuple[torch.Tensor, Optional[torch.Tensor], Optional[torch.Tensor], Optional[torch.Tensor]]:
         if self.keep_copy:
             self.points_copy = points.clone()
         chosen_points = torch.randint(high=points.shape[0], size=(self.sample_size,))
         sample = points[chosen_points]
-        return idx, sample, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries
+        return sample#, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries
 
     def inverse_transform(
             self,
-            idx: int,
             points: torch.Tensor,
             planar_symmetries: Optional[torch.Tensor] = None,
             axis_continue_symmetries: Optional[torch.Tensor] = None,
             axis_discrete_symmetries: Optional[torch.Tensor] = None
-    ) -> tuple[int, torch.Tensor, Optional[torch.Tensor], Optional[torch.Tensor], Optional[torch.Tensor]]:
+    ) -> tuple[torch.Tensor, Optional[torch.Tensor], Optional[torch.Tensor], Optional[torch.Tensor]]:
         if self.keep_copy:
-            return idx, self.points_copy, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries
+            return self.points_copy, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries
         else:
-            return idx, points, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries
+            return points #, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries

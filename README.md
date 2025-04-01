@@ -15,17 +15,19 @@
     &emsp;Make it runtime in the Dataloader, refactor the code 
     - Create multiple dataset (more omogeneous) <span style="color:green">**DONE**</span>  
     - Get a function that allow to select partial dataset <span style="color:green">**DONE**</span> (function implemented)  
-    - Make DataSet be able to load compressed numpy  
+    - Make DataSet be able to load compressed numpy <span style="color:green">**DONE**</span>  
 
 1. #### Implement the DataLoader
     
-    - Introduce a modified DataLoader 
-    - Augmentations: 
+    - Introduce a modified DataLoader  
+    This is not necessary, the augmentation are implemented in the <code>def \_\_getitem__()</code> method of the <code>ProteinDataset</code>
+    - Augmentations:  <span style="color:green">**DONE**</span>
         - Traslations
-        - Move the Normalization
+        - Normalization
         - Rotations 
         - Noise
-        - Move the Sampling
+        - Sampling
+    - Still need to modify <code>UnitSphereNormalization()</code> and <code>RandomSampler()</code> to not take the index variable in the <code>\_\_call__()</code> method <span style="color:yellow">**DONE**</span> (to improve)
 
 1. #### Define a training loop
 
@@ -35,7 +37,7 @@
     - Write down metrics <span style="color:green">**DONE**</span> 
     - Log everything in <code>wandb</code>  
     Define a dict to log everything
-    - Make a function for the training loop and validation
+    - Make a function for the training loop and validation <span style="color:green">**DONE**</span>
 
 1. #### General things to do  
     

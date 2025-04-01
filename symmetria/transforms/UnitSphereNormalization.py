@@ -1,7 +1,7 @@
 from typing import Optional
 import torch
 
-from AbstractTransform import AbstractTransform
+from symmetria.transforms.AbstractTransform import AbstractTransform
 
 
 class UnitSphereNormalization(AbstractTransform):
@@ -43,7 +43,6 @@ class UnitSphereNormalization(AbstractTransform):
 
     def inverse_transform(
             self,
-            idx: int,
             points: torch.Tensor,
             planar_symmetries: Optional[torch.Tensor] = None,
             axis_continue_symmetries: Optional[torch.Tensor] = None,
@@ -60,11 +59,10 @@ class UnitSphereNormalization(AbstractTransform):
         if axis_discrete_symmetries is not None:
             axis_discrete_symmetries = self._inverse_normalize_planes(axis_discrete_symmetries)
 
-        return idx, points, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries
+        return points#, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries
 
     def transform(
             self,
-            idx: int,
             points: torch.Tensor,
             planar_symmetries: Optional[torch.Tensor] = None,
             axis_continue_symmetries: Optional[torch.Tensor] = None,
@@ -77,4 +75,4 @@ class UnitSphereNormalization(AbstractTransform):
             axis_continue_symmetries = self._normalize_planes(axis_continue_symmetries)
         if axis_discrete_symmetries is not None:
             axis_discrete_symmetries = self._normalize_planes(axis_discrete_symmetries)
-        return idx, points, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries
+        return points#, planar_symmetries, axis_continue_symmetries, axis_discrete_symmetries

@@ -67,7 +67,7 @@ def process_file(filename, protein_class, vtk_dir, output_dir):
 	print(f"Saved: {desired_output_filename}")
 
 def main():
-	base_path  = Path('/mnt/raid1/dataset/shrec-2025-protein-classification')
+	base_path  = Path('/mnt/raid1/dataset/shrec-2025-protein-classification/v2-20250331')
 	csv_path   = base_path / 'train_set.csv'
 	vtk_dir    = base_path / 'train'
 	output_dir = base_path / 'train-xz'

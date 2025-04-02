@@ -89,11 +89,14 @@ def visualize_mesh(df, cls, idx=0):
     mesh = pv.read(os.path.join(root, 'train', protein_name))
     mesh.plot()
 
-def create_dataframe(df, class_ids, number_of_proteins):
+def create_dataframe(df, class_ids, number_of_proteins=None):
     subset_dfs = []
     for cls in class_ids:
         class_df = df[df['class_id'] == cls]
-        if len(class_df) < number_of_proteins:
+        if number_of_proteins == None:
+            print(f'Using all data for the class {cls}')
+            subset = class_df.copy()
+        elif len(class_df) < number_of_proteins:
             print(f"Warning: Class {cls} has only {len(class_df)} proteins, but {number_of_proteins} were requested. Using all available proteins.")
             subset = class_df.copy() 
         else:

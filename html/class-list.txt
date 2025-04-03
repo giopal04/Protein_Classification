@@ -1,3 +1,4 @@
 00 - very "easy" but somewhat similar to 81 - not too difficult to distinguish them "with the naked eye" after a bit of training
-81 - very "easy" and mnemonic - 2043-81-6qc2_24:X:B8_model1.vtk has no potentials (only point cloud)
 05 - very clear
+18 - quite similar to 81
+81 - very "easy" and mnemonic - 2043-81-6qc2_24:X:B8_model1.vtk has no potentials (only point cloud)

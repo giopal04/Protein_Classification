@@ -9,7 +9,6 @@ import argparse
 import time
 
 def start_plotting(filename):
-	#p = pv.Plotter()
 	p = pv.Plotter(off_screen=True)
 
 	# Read filename
@@ -27,20 +26,9 @@ def start_plotting(filename):
 	# Set window title
 	p.title = f'{filename}'
 
-	#p.camera.Dolly(1.2)
-	'''
-	p.camera.Yaw(0)
-	p.camera.Pitch(45)
-	p.camera.Roll(0)
-	'''
-	#p.reset_camera()
-	#p.camera.elevation = 90
-	# Rotate the camera
-	#p.camera.roll = 135
-	#p.camera.azimuth = 135
-
 	# Show
 	#p.show()
+
 	return p
 
 def rotate(p, elevation, azimuth):
@@ -48,8 +36,8 @@ def rotate(p, elevation, azimuth):
 	p.camera.azimuth = azimuth
 
 def screenshot(p, out_fn):
+	# Take a screenshot
 	p.screenshot(f'{out_fn}.png', transparent_background=True)
-
 
 if __name__ == '__main__':
 	parser = argparse.ArgumentParser()
@@ -62,25 +50,8 @@ if __name__ == '__main__':
 
 	filename = args.filename
 
-	# Take a screenshot
-	#p.screenshot(f'{filename}.png', transparent_background=True)
-
 	for elevation in range(0, 360, 45):
 		for azimuth in range(0, 360, 45):
 			p = start_plotting(filename)
 			rotate(p, elevation, azimuth)
 			screenshot(p, f'{filename}-{elevation}-{azimuth}')
-			#p.camera.elevation = elevation
-			#p.camera.azimuth = azimuth
-			#time.sleep(0.5)
-			#p.export_html('/tmp/render.html')
-			#p.screenshot(f'{filename}-{elevation}-{azimuth}.png', transparent_background=True)
-
-			'''
-			# Export to HTML
-			p.export_html('/tmp/render.html')
-			
-			# Use shot-scraper to render and screenshot this via a subprocess
-			# You can use the --wait flag to deal with screenshotting renders that take a while to render
-			subprocess.Popen(f"shot-scraper /tmp/render.html -o /tmp/prot/screenshot-{filename}-{elevation}-{azimuth}.png --wait 5000".split(" "))
-			'''

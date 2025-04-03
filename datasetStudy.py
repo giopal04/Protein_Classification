@@ -87,6 +87,7 @@ def visualize_mesh(df, cls, idx=0):
     protein_name += '.vtk'
 
     mesh = pv.read(os.path.join(root, 'train', protein_name))
+    print(mesh)
     mesh.plot()
 
 def create_dataframe(df, class_ids, number_of_proteins=None):

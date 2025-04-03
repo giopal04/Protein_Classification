@@ -23,5 +23,6 @@ share/
 .vscode/
 
 # Logging
+notebook/output/
 output/
 wandb/

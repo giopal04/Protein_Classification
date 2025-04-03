@@ -2,6 +2,15 @@
 
 import pyvista as pv
 
+'''
+# Get system info
+import pyvista as pv
+print(pv.Report())
+
+import sys
+sys.exit(0)
+'''
+
 import subprocess
 
 import argparse

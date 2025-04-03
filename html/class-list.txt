@@ -1,0 +1,1 @@
+81 - very "easy" and mnemonic - 2043-81-6qc2_24:X:B8_model1.vtk has no potentials (only point cloud)

@@ -2,11 +2,23 @@
 
 import pyvista as pv
 
+import os
+#os.environ['PYVISTA_OFF_SCREEN'] = 'true'
+#os.environ['VTK_USE_X'] = 'off'
+os.environ['VTK_DEFAULT_OPENGL_WINDOW'] = 'vtkOSOpenGLRenderWindow'		# because of this: https://github.com/pyvista/pyvista/issues/1180
+#os.environ['VTK_DEFAULT_OPENGL_WINDOW'] = 'vtkEGLRenderWindow'
+
+import vtk
+ren_win = vtk.vtkRenderWindow()
+print(ren_win.GetClassName())  # Should output vtkOSOpenGLRenderWindow
+
 '''
 # Get system info
 import pyvista as pv
 print(pv.Report())
+'''
 
+'''
 import sys
 sys.exit(0)
 '''

@@ -52,7 +52,21 @@ The dataset has a really dishomogeneous distribution of meshes per class,
 at this moment we have restricted the dataset to the subset where each class have more than a 100 meshes,  
 finally we have taken a fixed number of meshes for each class.
 
-<span style="color:orange">First run</span> done on a small dataset (_4 classes, 384 images, no validation_) with some promising results,  
-it seemed to be learning somthing 
+<span style="color:orange">First run</span> done on a small dataset (_4 classes, 384 images, no validation_) with some promising results, it seemed to be learning somthing. Computing the validation loss it was clear that **nothing was learned**.
 
 Polish everything
+
+Finally we had been able to make the <code>PointNet</code> learn something  
+
+<code>PointNet</code> still has troubles learning more than two classes, in particular if it has to deal with an unbalanced dataset.
+
+### Want to try
+
+1. Weight in loss to balance the dataset  
+1. Duplicate less populated classes to balance the dataset  
+1. Pass to the <code>PointNet</code> decoder the features ectracted from its encoder and a <code>ResNet</code> fine tuned on the proteins screenshot
+
+### Good runs
+
+- Small dataset of **194** protein and **2** classes, <code>shrec_run-GPU-2-IMPARA.ipynb</code>, reached over **0.95** of accuracy  
+- Dataset containing **1000** proteins divided among **10** classes, <code>shrec_run-GPY-10_clss-1000_images.ipynb</code>, reached **0.65** of accuracy (was overfitting badly)

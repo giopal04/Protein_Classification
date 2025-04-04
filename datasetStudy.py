@@ -1,5 +1,6 @@
 import pandas as pd
-import pyvista as pv 
+import pyvista as pv
+import numpy as np
 import os
 
 # Multiple function here depends on thi variable
@@ -20,8 +21,9 @@ def possible_disconnected_mesh(df, cls, get_names=False):
     
 def cls_distribution(df):
     dist = {}
+    classes = list(np.sort(df['class_id'].unique()))
 
-    for cls in range(max(df['class_id']) + 1):
+    for cls in classes:
         df_tmp = df[df['class_id'] == cls]
         dist[cls] = len(list(df_tmp['protein_id']))
     

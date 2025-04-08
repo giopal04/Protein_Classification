@@ -9,6 +9,8 @@ def main(debug=False):
 	parser = argparse.ArgumentParser(description='Process log file and generate summary.')
 	parser.add_argument('input_file',  type=Path, help='Input log file path')
 	parser.add_argument('output_file', type=Path, help='Output file path')
+	# add optional argument '--certain' (boolean, default false) to print only values with count > 32
+	parser.add_argument('--certain', action='store_true', help='Print only values with count > 32')
 	args = parser.parse_args()
 
 	# Data structure to hold sum and count for each label under each object_id
@@ -71,6 +73,15 @@ def main(debug=False):
 			if debug:
 				print(f'sorted - {obj_id}: {sorted_labels}')
 			top_three = sorted_labels[:3]  # Take up to top three labels
+			if debug:
+				print(f'top3   - {obj_id}: {top_three}')
+				print(f'top3   - {obj_id}: {top_three[0]}')
+				print(f'top3   - {obj_id}: {top_three[0][1][1]}')
+			best_label         = top_three[0]
+			best_avg_and_count = top_three[0][1]
+			best_count         = best_avg_and_count[1]
+			if debug:
+				print(f'best   - {obj_id}: {best_label[0]} {best_avg_and_count[0]} {best_count}')
 			
 			# Format the line parts
 			line_parts = [obj_id]
@@ -78,6 +89,9 @@ def main(debug=False):
 				line_parts.append(f"{label} {avg:.3f} {count}")
 			
 			# Join parts and write to file
+			if args.certain and best_count < 32:
+				continue
+
 			f_out.write(' - '.join(line_parts) + '\n')
 
 if __name__ == "__main__":

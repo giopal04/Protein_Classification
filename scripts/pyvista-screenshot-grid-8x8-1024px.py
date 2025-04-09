@@ -199,7 +199,7 @@ if __name__ == '__main__':
 	for elevation in range(0, 360, 45):
 		for azimuth in range(0, 360, 45):
 			p = start_plotting(filename, args.debug_show)
-			if args.debug_show or True:
+			if args.debug_show:
 				print(f'Capturing image: {filename = } - {elevation = } - {azimuth = }')
 			rotate(p, elevation, azimuth)
 			out_fn = Path(out_dir) / f'{Path(filename).stem}-{elevation}-{azimuth}'

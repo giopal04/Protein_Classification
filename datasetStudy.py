@@ -19,13 +19,13 @@ def possible_disconnected_mesh(df, cls, get_names=False):
     else:
         return (len(df_defect), cls_mesh)
     
-def cls_distribution(df):
+def cls_distribution(df, column_name='class_id'):
     dist = {}
-    classes = list(np.sort(df['class_id'].unique()))
+    classes = list(np.sort(df[column_name].unique()))
 
     for cls in classes:
-        df_tmp = df[df['class_id'] == cls]
-        dist[cls] = len(list(df_tmp['protein_id']))
+        df_tmp = df[df[column_name] == cls]
+        dist[cls] = len(list(df_tmp[column_name]))
     
     return dist
 

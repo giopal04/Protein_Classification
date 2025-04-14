@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+# ./voting.py andrea-inference-log-20250411-grid-8x8-with-confidence.csv giorgio-predictions+confidence_submission-model_final+80+bestloss-with-logits-final-submission-votingformat.csv marco-probabilities-135-balanced.txt training-set-class-frequencies.txt > voting-explained-marco-135-balanced.txt
+
 import sys
 from collections import defaultdict
 

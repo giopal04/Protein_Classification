@@ -70,3 +70,14 @@ Finally we had been able to make the <code>PointNet</code> learn something
 
 - Small dataset of **194** protein and **2** classes, <code>shrec_run-GPU-2-IMPARA.ipynb</code>, reached over **0.95** of accuracy  
 - Dataset containing **1000** proteins divided among **10** classes, <code>shrec_run-GPY-10_clss-1000_images.ipynb</code>, reached **0.65** of accuracy (was overfitting badly)
+
+# Descrizione del metodo
+
+Per la creazione del dataset abbiamo considerato unicamente la nuvola di punti della proteina alla quale è stata applicata una leggera data augmentation. Le trasformazioni utilizzate sono una traslazione randomica e l'aggiunta di rumore Gaussiano (abbiamo nontato che ruotare le proteine fa solo danni). Le point-cloud sono anche state normalizzate entro la sfera di raggio unitario e gli è stato applicato un RandomSampler.
+Come modello abbiamo utilizzato una PointNet standard (26M di parametri) non pretrainata. Abbiamo notato che pretrainando il modello, i grafici di training e validatin loss non migliorano in modo evidente e l'accuracy raggiunge comunque livelli paragonabili a quelli ottenuti nelle run senza il pretrain.
+Nella run finale abbiamo addestrato la PointNet sull'intero dataset di training utilizzando come set di validazione un sottinisieme del dataset
+Per compensare la disomogeneità del dataset abbiamo applicato un bilanciamento delle classi. In particolare gli elementi delle classi sono stati duplicati di un fattore proporzionale alla numerosità della classe più popolosa e inferiore a 10.
+
+## Cose che non ricordo
+
+Abbiamo testato la PointNet con la rotazione come augmentation?

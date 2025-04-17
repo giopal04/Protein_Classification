@@ -77,7 +77,3 @@ Per la creazione del dataset abbiamo considerato unicamente la nuvola di punti d
 Come modello abbiamo utilizzato una PointNet standard (26M di parametri) non pretrainata. Abbiamo notato che pretrainando il modello, i grafici di training e validatin loss non migliorano in modo evidente e l'accuracy raggiunge comunque livelli paragonabili a quelli ottenuti nelle run senza il pretrain.
 Nella run finale abbiamo addestrato la PointNet sull'intero dataset di training utilizzando come set di validazione un sottinisieme del dataset
 Per compensare la disomogeneità del dataset abbiamo applicato un bilanciamento delle classi. In particolare gli elementi delle classi sono stati duplicati di un fattore proporzionale alla numerosità della classe più popolosa e inferiore a 10.
-
-## Cose che non ricordo
-
-Abbiamo testato la PointNet con la rotazione come augmentation?
